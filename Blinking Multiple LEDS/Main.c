@@ -2,24 +2,14 @@
 #include "stm32f1xx.h"
 #include <stdint.h>
 
-/*
- * Program 1:
- * Blinking Multiple LEDs at Different Frequencies
- *
- * Board : STM32F103C8 (Blue Pill)
- * Timer : TIM2, TIM3, TIM4
- *
- * LED Merah : PA0 -> TIM2
- * LED Hijau : PA1 -> TIM3
- * LED Biru  : PA2 -> TIM4
- */
+
 
 void GPIO_Init(void)
 {
     // Enable clock GPIOA
     RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
 
-    // PA0, PA1, PA2 sebagai output push-pull 2 MHz
+  
     GPIOA->CRL &= ~((0xFU << 0) |
                     (0xFU << 4) |
                     (0xFU << 8));
@@ -36,11 +26,11 @@ void Timer_Init(void)
                     RCC_APB1ENR_TIM3EN |
                     RCC_APB1ENR_TIM4EN;
 
-    /*
-     * Clock timer = 8 MHz
-     * Prescaler = 7999
-     * Counter clock = 1000 Hz
-     */
+    /
+      Clock timer = 8 MHz
+     Prescaler = 7999
+     Counter clock = 1000 Hz
+     /
 
     // TIM2: update setiap 1 detik
     TIM2->PSC = 7999;
@@ -63,7 +53,7 @@ void Timer_Init(void)
     TIM4->EGR = TIM_EGR_UG;
     TIM4->SR = 0;
 
-    // Start all timers
+  
     TIM2->CR1 |= TIM_CR1_CEN;
     TIM3->CR1 |= TIM_CR1_CEN;
     TIM4->CR1 |= TIM_CR1_CEN;
@@ -76,21 +66,21 @@ int main(void)
 
     while (1)
     {
-        // TIM2 controls red LED
+        // TIM2 kontrol LED merah
         if (TIM2->SR & TIM_SR_UIF)
         {
             TIM2->SR &= ~TIM_SR_UIF;
             GPIOA->ODR ^= (1U << 0);
         }
 
-        // TIM3 controls green LED
+        // TIM3 kontrol LED hijau
         if (TIM3->SR & TIM_SR_UIF)
         {
             TIM3->SR &= ~TIM_SR_UIF;
             GPIOA->ODR ^= (1U << 1);
         }
 
-        // TIM4 controls blue LED
+        // TIM4 kontrol LED biru
         if (TIM4->SR & TIM_SR_UIF)
         {
             TIM4->SR &= ~TIM_SR_UIF;

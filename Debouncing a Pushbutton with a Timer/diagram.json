@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "author": "STM32 Timer Assignment",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-stm32-bluepill",
+      "id": "bluepill",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led",
+      "top": -80,
+      "left": 300,
+      "attrs": {
+        "color": "red"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -80,
+      "left": 200,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "button",
+      "top": 100,
+      "left": 300,
+      "attrs": {
+        "color": "blue"
+      }
+    }
+  ],
+  "connections": [
+    [ "bluepill:A0", "r1:1", "green", [] ],
+    [ "r1:2", "led:A", "green", [] ],
+    [ "led:C", "bluepill:GND.1", "black", [] ],
+    [ "bluepill:A1", "button:1.l", "green", [] ],
+    [ "bluepill:GND.1", "button:2.l", "black", [] ]
+  ],
+  "dependencies": {}
+}
